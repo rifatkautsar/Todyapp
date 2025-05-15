@@ -1,0 +1,49 @@
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+
+name: Dart
+
+on:
+  push:
+    branches: [ "main", "development" ]
+  pull_request:
+    branches: [ "main", "development" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v4
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 3.27.1
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Build APK and AppBundle
+        run: |
+          if [ "${{ github.ref }}" == "refs/heads/main" ]; then
+            flutter build apk --flavor prod -t lib/main_prod.dart
+            flutter build appbundle --flavor prod -t lib/main_prod.dart
+          else
+            flutter build apk --flavor dev -t lib/main_dev.dart
+            flutter build appbundle --flavor dev -t lib/main_dev.dart
+          fi
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: apk
+          path: build/app/outputs/flutter-apk/*.apk
+
+      - name: Upload AppBundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: appbundle
+          path: build/app/outputs/bundle/release/*.aab
