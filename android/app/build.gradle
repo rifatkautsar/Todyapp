@@ -57,6 +57,13 @@ android {
             versionNameSuffix "-dev"
         }
 
+         staging {
+            dimension "Todyapp"
+            applicationIdSuffix ".staging   "
+            resValue "string", "app_name", "Todyapp Staging"
+            versionNameSuffix "-staging"
+        }
+
         prod {
             dimension "Todyapp"
             resValue "string", "app_name", "Todyapp"

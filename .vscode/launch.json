@@ -1,0 +1,26 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Todyapp Dev",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main_dev.dart",
+      "args": ["--flavor", "dev", "--dart-define=flavor=dev"]
+    },
+    {
+      "name": "Todyapp Staging",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main_staging.dart",
+      "args": ["--flavor", "staging", "--dart-define=flavor=staging"]
+    },
+    {
+      "name": "Todyapp Prod",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main_prod.dart",
+      "args": ["--flavor", "prod", "--dart-define=flavor=prod"]
+    }
+  ]
+}
